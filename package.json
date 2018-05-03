@@ -1,0 +1,15 @@
+{
+  "name": "activshare",
+  "version": "1.0.0",
+  "description": "App to share activities with family and friends",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "Matthew Kane",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "mongoose": "^5.0.17"
+  }
+}
