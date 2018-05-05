@@ -31,6 +31,10 @@ app.get('/', (req, res) => {
 // Use Routes
 app.use('/auth', auth);
 
+// Passport iddleware
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.listen(port, () => {
     console.log(`Server started on port ${port}`)
 });
