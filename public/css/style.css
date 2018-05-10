@@ -11,3 +11,19 @@ main {
 .nav-wrapper .fa-bars {
     font-size: 20px;
 }
+
+.story-text {
+    height: 120px;
+}
+
+.dash-status {
+    text-transform: capitalize;
+}
+
+#delete-form {
+    display: inline;
+}
+
+.edit-btn, .delete-btn {
+    width: 110px;
+}

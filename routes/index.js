@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
+const Activity = mongoose.model('activities');
 const { ensureAuthenticated, ensureGuest } = require('../helpers/auth');
 
 router.get('/', ensureGuest, (req, res) => {
@@ -7,7 +9,12 @@ router.get('/', ensureGuest, (req, res) => {
 });
 
 router.get('/dashboard', ensureAuthenticated, (req, res) => {
-    res.render('index/dashboard');
+    Activity.find({user: req.user.id})
+        .then(activities => {
+            res.render('index/dashboard', {
+                activities: activities
+            });
+        });
 });
 
 
