@@ -7,7 +7,7 @@ const { ensureAuthenticated, ensureGuest } = require('../helpers/auth');
 
 // Activities Index
 router.get('/', (req, res) => {
-    Activity.find({status:'public'})
+    Activity.find({ status: 'public' })
         .populate('user')
         .then(activities => {
             res.render('activities/index', {
@@ -26,17 +26,17 @@ router.get('/edit/:id', ensureAuthenticated, (req, res) => {
     Activity.findOne({
         _id: req.params.id
     })
-    .then(activity => {
-        res.render('activities/edit', {
-            activity: activity
+        .then(activity => {
+            res.render('activities/edit', {
+                activity: activity
+            });
         });
-    });
 });
 
 // Process Add Activities
 router.post('/', (req, res) => {
     let allowComments;
-    if(req.body.allowComments){
+    if (req.body.allowComments) {
         allowComments = true;
     } else {
         allowComments = false;
@@ -67,14 +67,48 @@ router.get('/show/:id', (req, res) => {
     Activity.findOne({
         _id: req.params.id
     })
-    .populate('user')
-    .then(activity => {
-        res.render('activities/show', {
-            activity: activity
+        .populate('user')
+        .then(activity => {
+            res.render('activities/show', {
+                activity: activity
+            });
         });
-    });
 });
 
 
+// Edit Form Process
+router.put('/:id', (req, res) => {
+    Activity.findOne({
+        _id: req.params.id
+    })
+        .then(activity => {
+            let allowComments;
+            if (req.body.allowComments) {
+                allowComments = true;
+            } else {
+                allowComments = false;
+            }
+
+            // New Values
+            activity.title = req.body.title;
+            activity.body = req.body.body;
+            activity.status = req.body.status;
+            activity.allowComments = allowComments;
+
+            activity.save()
+                .then(activity => {
+                    res.redirect('/dashboard');
+                });
+        });
+
+});
+
+// Delete Story
+router.delete('/:id', (req, res) => {
+    Activity.remove({_id: req.params.id})
+        .then(() => {
+            res.redirect('/dashboard');
+        });
+});
 
 module.exports = router;

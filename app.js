@@ -3,6 +3,7 @@ const path = require('path');
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport = require('passport');
@@ -10,8 +11,12 @@ const passport = require('passport');
 const app = express();
 const port = process.env.PORT || 5600;
 
+// Body Parser Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// Method Override Middleware
+app.use(methodOverride('_method'));
 
 // Load User Model
 require('./models/User');

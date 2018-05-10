@@ -1,6 +1,7 @@
 <h1>Edit Activity</h1>
 <div class="row">
-    <form action="/activities" method="post" class="col s12">
+    <form action="/activities/{{activity.id}}?_method=PUT" method="post" class="col s12">
+        <input type="hidden" name="_method" value="PUT">
         <div class="row">
             <div class="input-field">
                 <input type="text" name="title" value="{{activity.title}}">
