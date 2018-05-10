@@ -1,1 +1,42 @@
 <h1>Edit Activity</h1>
+<div class="row">
+    <form action="/activities" method="post" class="col s12">
+        <div class="row">
+            <div class="input-field">
+                <input type="text" name="title" value="{{activity.title}}">
+                <label for="title">Title</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field">
+                <select name="status">
+                    {{#select activity.status}}
+                    <option value="public" selected>Public</option>
+                    <option value="private">Private</option>
+                    <option value="Unpublished">Unpublished</option>
+                    {{/select}}
+                </select>
+                <label for="title">Status</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <p>
+                <label>
+                    <input type="checkbox" name="allowComments" class="filled-in" id="filled-in-box" {{#if activity.allowComments}} checked="checked" {{/if}}>
+                    <span>Allow Comments</span>
+                </label>
+            </p>
+        </div>
+
+        <div class="row">
+            <div class="input-field">
+                <h5>Explain Your Activity:</h5>
+                <textarea name="body">{{activity.body}}</textarea>
+            </div>
+        </div>
+
+        <input type="submit" value="Save" name="submit" class="btn">
+    </form>
+</div>

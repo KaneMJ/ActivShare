@@ -21,6 +21,18 @@ router.get('/add', ensureAuthenticated, (req, res) => {
     res.render('activities/add');
 });
 
+// Edit Activity Form
+router.get('/edit/:id', ensureAuthenticated, (req, res) => {
+    Activity.findOne({
+        _id: req.params.id
+    })
+    .then(activity => {
+        res.render('activities/edit', {
+            activity: activity
+        });
+    });
+});
+
 // Process Add Activities
 router.post('/', (req, res) => {
     let allowComments;
