@@ -1,14 +1,15 @@
 <nav>
-    <div class="nav-wrapper purple darken-2">
-        <a href="#!" class="brand-logo center">ActivShare</a>
+    <div class="nav-wrapper purple lighten-1">
+        <a href="/" class="brand-logo center">ActivShare</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger">
             <i class="fa fa-bars"></i>
         </a>
         <ul class="left hide-on-med-and-down">
-            <li><a href="sass.html">Sass</a></li>
-            <li><a href="badges.html">Components</a></li>
-            <li><a href="collapsible.html">Javascript</a></li>
-            <li><a href="mobile.html">Mobile</a></li>
+            {{#if user}}
+            <li><a href="/dashboard"><i class="fa fa-cog"></i> Dashboard</a></li>
+            <li><a href="/activities/my"><i class="fa fa-user"></i> My Activities</a></li>
+            <li><a href="/activities"><i class="fa fa-book"></i> Public Activities</a></li>
+            {{/if}}
         </ul>
         <!-- Right Nav -->
         <ul class="right hide-on-small-only">
