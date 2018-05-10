@@ -55,6 +55,7 @@ router.get('/show/:id', (req, res) => {
     Activity.findOne({
         _id: req.params.id
     })
+    .populate('user')
     .then(activity => {
         res.render('activities/show', {
             activity: activity
