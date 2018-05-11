@@ -9,6 +9,7 @@ const { ensureAuthenticated, ensureGuest } = require('../helpers/auth');
 router.get('/', (req, res) => {
     Activity.find({ status: 'public' })
         .populate('user')
+        .sort({date: 'desc'})
         .then(activities => {
             res.render('activities/index', {
                 activities: activities
@@ -27,8 +28,35 @@ router.get('/edit/:id', ensureAuthenticated, (req, res) => {
         _id: req.params.id
     })
         .then(activity => {
-            res.render('activities/edit', {
-                activity: activity
+            if(activity.user != req.user.id){
+                res.redirect('/activities');
+            } else {
+                res.render('activities/edit', {
+                    activity: activity
+                });
+            }
+        });
+});
+
+// List stories from a user
+router.get('/user/:userId', (req, res) => {
+    Activity.find({user: req.params.userId, status: 'public'})
+        .populate('user')
+        .sort({date: 'desc'})
+        .then(activities => {
+            res.render('activities/index', {
+                activities: activities
+            });
+        });
+});
+
+// My user stories
+router.get('/my', ensureAuthenticated, (req, res) => {
+    Activity.find({user: req.user.id})
+        .populate('user')
+        .then(activities => {
+            res.render('activities/index', {
+                activities: activities
             });
         });
 });
@@ -68,6 +96,7 @@ router.get('/show/:id', (req, res) => {
         _id: req.params.id
     })
         .populate('user')
+        .populate('comments.commentUser')
         .then(activity => {
             res.render('activities/show', {
                 activity: activity
@@ -103,11 +132,30 @@ router.put('/:id', (req, res) => {
 
 });
 
-// Delete Story
+// Delete Activity
 router.delete('/:id', (req, res) => {
     Activity.remove({_id: req.params.id})
         .then(() => {
             res.redirect('/dashboard');
+        });
+});
+
+// Add Comment
+router.post('/comment/:id', (req, res) => {
+    Activity.findOne({_id: req.params.id})
+        .then((activity) => {
+            const newComment = {
+                commentBody: req.body.commentBody,
+                commentUser: req.user.id
+            }
+
+            // Add to comments array
+            activity.comments.unshift(newComment);
+
+            activity.save()
+                .then(activity => {
+                    res.redirect(`/activities/show/${activity.id}`)
+                });
         });
 });
 

@@ -19,5 +19,16 @@ module.exports = {
     },
     select: (selected, options) => {
         return options.fn(this).replace( new RegExp(' value=\"' + selected + '\"'), '$& selected="selected"').replace( new RegExp('>' + selected + '</option>'), 'selected="selected"$&')
+    },
+    editIcon: (activityUser, loggedUser, activityId, floating = true) => {
+        if(activityUser == loggedUser){
+            if(floating){
+                return `<a href="/activities/edit/${activityId}" class="btn-floating halfway-fab teal lighten-1"><i class="fa fa-pencil"></i></a>`;
+            } else {
+                return `<a href="/activities/edit/${activityId}" class="teal-text text-lighten-1"><i class="fa fa-pencil"></i></a>`;
+            }
+        } else {
+            return '';
+        }
     }
 }

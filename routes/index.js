@@ -10,6 +10,7 @@ router.get('/', ensureGuest, (req, res) => {
 
 router.get('/dashboard', ensureAuthenticated, (req, res) => {
     Activity.find({user: req.user.id})
+        .sort({date:'desc'})
         .then(activities => {
             res.render('index/dashboard', {
                 activities: activities

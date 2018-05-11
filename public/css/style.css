@@ -27,3 +27,8 @@ main {
 .edit-btn, .delete-btn {
     width: 110px;
 }
+
+.activityTitle {
+    font-size: 1.4rem;
+    font-style: bold;
+}
