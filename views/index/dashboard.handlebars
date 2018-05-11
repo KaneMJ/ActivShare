@@ -1,0 +1,33 @@
+<h1>Welcome {{user.firstName}}</h1>
+<h4>Your Activities</h4>
+{{#if activities}}
+    <table class="striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each activities}}
+                <tr>
+                    <td><a href="/activities/show/{{id}}">{{truncate title 25}}</a></td>
+                    <td>{{formatDate date 'MMMM Do YYYY'}}</td>
+                    <td><span class="dash-status">{{status}}</span></td>
+                    <td>
+                        <a href="/activities/edit/{{id}}" class="btn left-align edit-btn"><i class="fa fa-pencil"></i> Edit</a>
+                        <form action="/activities/{{id}}?_method=DELETE" method="post" id="delete-form">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button class="btn red delete-btn"><i class="fa fa-remove"></i> Delete</button>
+                        </form>
+                    </td>
+
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+{{else}}
+    <p>Lets get active. Press the purple plus icon in the lower right corner to list your first Activity</p>
+{{/if}}

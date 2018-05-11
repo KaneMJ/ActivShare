@@ -1,0 +1,40 @@
+<nav>
+    <div class="nav-wrapper purple lighten-1">
+        <a href="/" class="brand-logo center">ActivShare</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+            <i class="fa fa-bars"></i>
+        </a>
+        <ul class="left hide-on-med-and-down">
+            {{#if user}}
+            <li><a href="/dashboard"><i class="fa fa-cog"></i> Dashboard</a></li>
+            <li><a href="/activities/my"><i class="fa fa-user"></i> My Activities</a></li>
+            <li><a href="/activities"><i class="fa fa-book"></i> Public Activities</a></li>
+            {{/if}}
+        </ul>
+        <!-- Right Nav -->
+        <ul class="right hide-on-small-only">
+            {{#if user}}
+            <li><a href="/dashboard">Welcome {{user.firstName}}</a></li>
+            <li><a href="/auth/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
+            {{else}}
+            <li><a href="/activities"><i class="fa fa-book"></i> Public Activities</a></li>
+            {{/if}}
+        </ul>
+    </div>
+</nav>
+
+<ul class="sidenav" id="mobile-demo">
+
+    {{#if user}} 
+    
+    {{else}}
+    <li><a class="btn teal lighten-1" href="/auth/google"><i class="fa fa-google left"></i> Google Login</a></li>
+    {{/if}}
+    <li><a href="/activities"><i class="fa fa-book"></i> Public Activities</a></li>
+    {{#if user}}
+    <li class="divider"></li>
+    <li><a href="/dashboard"><i class="fa fa-cog"></i> Dashboard</a></li>
+    <li><a href="/activities/my"><i class="fa fa-user"></i> My Activities</a></li>
+    <li><a href="/auth/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
+    {{/if}}
+</ul>
