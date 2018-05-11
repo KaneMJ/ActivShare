@@ -98,9 +98,23 @@ router.get('/show/:id', (req, res) => {
         .populate('user')
         .populate('comments.commentUser')
         .then(activity => {
-            res.render('activities/show', {
-                activity: activity
-            });
+            if(activity.status == 'public'){
+                res.render('activities/show', {
+                    activity: activity
+                });
+            } else {
+                if(req.user){
+                    if(req.user.id == activity.user._id){
+                        res.render('activities/show', {
+                            activity: activity
+                        })
+                    } else {
+                        res.redirect('/activities');
+                    }
+                } else {
+                    res.redirect('/activities');
+                }
+            }
         });
 });
 
