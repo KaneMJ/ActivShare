@@ -98,7 +98,7 @@ router.get('/show/:id', (req, res) => {
         .populate('user')
         .populate('comments.commentUser')
         .then(activity => {
-            if(activity.status == 'public'){
+            if(activity.status == 'public' || activity.status== 'private'){
                 res.render('activities/show', {
                     activity: activity
                 });
